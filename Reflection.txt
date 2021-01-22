@@ -1,0 +1,21 @@
+What did you learn during this project?
+What did you enjoy during this project?
+What did you find challenging or frustrating during this project?
+What did you find particularly helpful for your learning during this project?
+
+Building our own program provided our group with a multitude of new experiences. On a large scale, 
+we learned about theimportance of communication among collaborators. Frequent zoom meetings allowed
+us to seek help when we faced challenges,stay accountable in developing our program in a timely 
+manner, and stay on the same page about the details and overall goals of our project as it evolved.
+In order to use data from Yelp, we had to learn about APIs. We also had to
+learn about HTML and JSON to work in the server and get our program to work altogether. This was
+especially challenging, but it was helpful to look in the servers of assessments and observe how
+they work. When it came to APIs, HTML and JSON, there was also lots of helpful information online
+to read and learn from. The IPL was another great resource for us. The TAs provided great guidance
+and were really encouraging when we faced bumps. Although we faced challenges, this project was
+really fun! It was awesome to apply concepts from the course to build something of our own.
+Something that was particularly helpful was the skill to read and understand other classes that we
+needed to use in our own code. We had to practice this in the last few homework assignments, and
+although it was difficult at first, it got easier with time. This was helpful during the project
+because each of us wrote code that involved classes that a different group member wrote. It
+was really enjoyable to confidently write code using the skills we've been practicing all quarter.

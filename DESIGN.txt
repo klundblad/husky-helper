@@ -1,0 +1,66 @@
+    The ProfessorIds.csv and RestaurantIds.csv files are used to help create the RatingSystem and Professor objects. Both csv
+files contain specific numerical ID numbers that link to a certain restaurant or professor. These IDs are needed to access 
+their data either through Yelp or ratemyprofessor. The restaurant's IDs were obtained through running Yelp's business 
+ID URL (https://api.yelp.com/v3/businesses/search?term=restaurants&latitude=47.608013&longitude=-122.335167) with latitude
+and longitude set to Seattle. This URL also provided information about each restaurant's name and category. The professor 
+ID was obtained by observing the ID in each ratemyprofessor's webpage 
+(https://www.ratemyprofessors.com/ShowRatings.jsp?tid=747076&showMyProfs=true has ID 747076).Both files also contain the 
+name of the restaurant or professor which is needed for display and identification purposes. The ProfessorIds.csv contains 
+all the classes the professor teaches, which is used to help users search for certain classes with a certain professor. The 
+RestaurantIds.csv similarly contains categories the restaurant is identified with, which also helps users search for nearby 
+restaurants that fit their taste and style.
+    
+    A single restaurant is represented by the RatingSystem object. The constructor of RatingSystem required the name and 
+business ID of the restaurant. The class contains a set of user submitted ratings, a set of categories the restaurant 
+falls into (ie. fast food, Chinese, etc.), the name, and overall rating for the restaurant. The user submitted ratings 
+are created through the YelpData class. The YelpData class uses Yelp’s API to access user reviews for the restaurant. 
+Yelp’s API requires a URL with the restaurant’s ID as well as an authorization key, which can be obtained by creating 
+a Yelp account. Once a connection to the URL is secured, the information from the API is stored in a string. Since we 
+only want certain data from the API, split and substring is used to access the data we need, specifically the user’s 
+numerical rating from 0 to 5, and their comment. This data is used to create a Rating object, which represents a single 
+rating. YelpData will return a set of all the Ratings created from the API for the specific restaurant. This set will be 
+used as a field for each RatingSystem. The overall rating for a RatingSystem is calculated by adding all of the numerical 
+ratings from YelpData and dividing by the number of ratings added. A private method roundData is used to truncate long 
+decimal values. 
+
+    A Professor object follows a similar design to a RatingSystem object. A name and ID of a professor is needed for the 
+constructor of a Professor. A set of all ratings for a professor is obtained through the ProfessorData class. However, 
+since we are trying to take data from ratemyprofessor and there is no API for it, we had to traverse the HTML of a specific 
+professor’s page to find data we want. The ProfessorData class uses the URL of a professor’s ratemyprofessor page and saves 
+the HTML information as a string. By analyzing the HTML, we found certain keywords surrounding the data we needed. Therefore, 
+we used split to locate where the data was, and substring to cut out unnecessary characters. From this method, we were able 
+to get the overall numerical quality and difficulty rating, and the percentage of people who would retake the class. We also 
+got all the individual user reviews, which included a comment and quality and difficulty rating. Similar to RatingSystem, 
+we created a RatingProfessor object to represent a single user rating, which includes their inputted quality, difficulty, 
+and comment. The overall quality, difficulty, and retake percentage were saved as fields within the Professor object. This 
+helped separate an individual rating from the overall rating, and allowed easier access to the overall ratings. 
+
+    The SearchEngine class organizes professor and restaurant data. The constructor requires a set of Professor objects and 
+a set of RatingSystem objects. Professors are indexed into a map, using the methods getName, overallQuality, overallDifficulty 
+and overallRetake of the Professors class to map each professor's name to their rating information. RatingSystems are indexed 
+into a map using the getName and overallRating methods of the RatingSystem class to map each restuarant's name to its overall 
+rating. The given sets of Professors and RatingSystems are also saved as fields "rests" and "professors". The searchProf 
+method accepts a search query and goes through the professors set, gathering all professor names that match or contain the 
+query, and returns them in a set. Similarly,the searchRest method goes through the rests set and gathers all restaurant names 
+that contain or match the given query, utilizing the RatingSystem getName method. Additionally, searchRest goes through the 
+categoreies of each RatingSystem in the rests map(using RatingSystem's getCategories method), and includes in the return set 
+the restaurant names of of RatingSystems whose allCategories sets contain strings that match or contain the given query.
+
+    Server.java implements the SearchEngine in the form of two text box inputs: one corresponding to the professor objects
+and one corresponding to the rating system or restaurant objects. Enables the server to build the web app by defining an endpoint, 
+communicating with HTTP and performing the commands of the search engine. Currently, hitting the URL in order to contact 
+ratemyprofessor.com and yelp can create a server overload, so we chose to implement Thread.sleep() function in which the thread
+sleeps for 800 milliseconds (or 0.8 seconds) for each time that it is hitting the URL's from Yelp and RateMyProfessor APIs.
+This is a major performance issue and causes for the server to take up to 30 seconds to build in delays. It also raises the issue
+of the possibility of returning an Error 503 if the server attempts to overload the URL in some cases. This tends to be resolved
+by rerunning the program in the console. If we were to refine our project design, we would likely print all of our API data to a 
+text file before implementing the search engine so the Server protocol does not need to call this API several times as the client 
+is creating input. 
+
+    The index file implements multiple formatting commands for displaying the professor result and the restaurant result as well
+as their corresponding statistics. As discussed earlier, this will include the overrall rating of courses, percent of students that 
+will retake the course, the difficulty of a course, the reviews of a single attraction at the UW, a rating per restaurant, and 
+an overall rating of the restaurant. The overall rating is calculated and rounded in our implementation while the rest of the data 
+is scraped via the Yelp and ratemyprofessor.com APIs. Once a user is able to begin typing their search query, the text boxes 
+auto update to autonomously complete the search query, displaying its corresponding information along with it. 
+
