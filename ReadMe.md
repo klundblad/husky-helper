@@ -1,4 +1,9 @@
-Final Project for CSE 143 AU20
+## Husky Helper 
+
+This is a HTML/CSS based web app that uses the Yelp API and RatemyProfessor API in order to find some of the best rated courses and locations to eat on campus.
+
+
+## Final Project for CSE 143 AU20
 Husky Helper: Marlena Preigh, Andrew Zhang, Katharine Lundblad
 
 VIDEO LINK (Demonstrating functionality of product): https://youtu.be/2s83SHibO7I
